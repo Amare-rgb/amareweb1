@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Welcome — Your App</title>
+  <meta name="description" content="Attractive, accessible single-file welcome page with subtle animation and JS interaction." />
+  <style>
+    /* Reset + sensible defaults */
+    :root{
+      --bg-1: 18, 23, 40;      /* dark navy */
+      --bg-2: 64, 103, 255;    /* vivid blue */
+      --glass: rgba(255,255,255,0.06);
+      --accent: rgba(255, 255, 255, 0.96);
+      --muted: rgba(255, 255, 255, 0.75);
+      --radius: 16px;
+      --max-width: 1100px;
+      --gap: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(circle at 10% 20%, rgba(var(--bg-2),0.12), transparent 8%),
+                  linear-gradient(120deg, rgba(var(--bg-1),1), rgb(49, 65, 211));
+      color:var(--accent);
+      display:flex;align-items:center;justify-content:center;padding:40px;
+    }
+
+
+.typewriter {
+  color: rgb(16, 233, 34) !important;
+  font-weight: 600;
+}
+
+
+
+    /* Animated soft blobs in the background */
+    .bg-blobs{
+      position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.45;filter:blur(48px);
+      mix-blend-mode:screen;
+    }
+    .bg-blobs svg{width:120%;height:120%;display:block}
+
+    /* Main card */
+    .card{
+      position:relative;z-index:2;max-width:var(--max-width);width:100%;
+      background: rgb(63, 163, 177);
+      border-radius:var(--radius);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      padding: clamp(20px, 3vw, 40px);
+      display:grid;grid-template-columns:1fr 420px;gap:var(--gap);align-items:center;
+      overflow:hidden;
+    }
+
+
+.top-title {
+  position: absolute;
+  top: 20px;             /* distance from top */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  z-index: 10;
+}
+
+    
+    /* Left content */
+    .hero{
+      padding-right:10px;
+    }
+    h1{font-size:clamp(28px,4vw,44px);line-height:1.02;margin:0 0 10px}
+    .subtitle{color:var(--muted);font-size:1rem;margin-bottom:18px}
+    .typewriter{color:var(--accent);font-weight:600}
+
+    /* Buttons */
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      appearance:none;border:0;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:600;
+      background:rgba(255,255,255,0.06);color:var(--accent);
+      
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:focus{outline:3px solid rgba(100,150,255,0.18);}
+    .btn.primary{background:linear-gradient(90deg, rgba(var(--bg-2),0.95), rgba(90,64,255,0.9));color:white;box-shadow:0 8px 20px rgba(64,103,255,0.18)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .btn:hover{transform:translateY(-4px)}
+
+    /* Right panel - image / illustration */
+    .panel{
+      border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;min-height:220px
+    }
+    .mock{
+      width:100%;height:160px;border-radius:10px;background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:rgba(255,255,255,0.9);
+      font-size:14px;border:1px solid rgba(255,255,255,0.03)
+    }
+    .features{display:flex;
+        gap:12px;
+        width:100%;
+        flex-wrap:wrap}
+    .feature{flex:1;
+        min-width:120px;
+        background:rgba(255,255,255,0.02);
+        padding:10px;
+        border-radius:10px;
+        text-align:center}
+    .feature small{display:block;color:var(--muted);font-size:12px}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .card{grid-template-columns:1fr;}
+      .panel{order:-1}
+    }
+
+    /* Entrance animations */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce){
+      .bg-blobs, .btn{transition:none} .reveal{transition:none}
+    }
+  </style>
+</head>
+<body>
+    <h1 class="top-title">This are the Gondar city website welcome page then to see by detailed</h1>
+
+  <!-- Soft, colorful SVG blobs in the background -->
+  <div class="bg-blobs" aria-hidden="true">
+    <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0%" stop-color="rgba(64,103,255,0.9)"/>
+          <stop offset="100%" stop-color="rgba(98,55,255,0.7)"/>
+        </linearGradient>
+      </defs>
+      <g>
+        <circle cx="120" cy="100" r="220" fill="url(#g1)" />
+        <circle cx="700" cy="420" r="260" fill="rgba(0,200,255,0.14)" />
+      </g>
+    </svg>
+  </div>
+
+  <main class="card" role="main" aria-labelledby="welcome-title">
+    <section class="hero">
+      <h1 id="welcome-title">Welcome to <span class="typewriter" id="brand">Your Product</span></h1>
+      <p class="subtitle">this are the gondar city website</p>
+
+      <div class="btn-row reveal" id="actions">
+        <button class="btn primary" id="get-started"><a href="index.html" style="color: white;">Get started</a></button>
+        
+      </div>
+
+      <div style="height:12px"></div>
+      <div class="reveal" id="extra">
+        <p style="margin:0;color:var(--muted)">Tip: press <kbd>Enter</kbd> to open the quick tour.</p>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="Preview panel">
+      <div class="mock" role="img" aria-label="App preview">Preview area — replace with your screenshot or SVG</div>
+      <div class="features">
+        <div class="feature"><strong>Fast</strong><small>Lightning quick load</small></div>
+        <div class="feature"><strong>Accessible</strong><small>Keyboard + screen reader</small></div>
+        <div class="feature"><strong>Responsive</strong><small>Works on any device</small></div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Small helper to reveal elements on load
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const revealables = document.querySelectorAll('.reveal');
+      // stagger reveals
+      revealables.forEach((el,i)=>setTimeout(()=>el.classList.add('show'), 120 * (i+1)));
+
+      // Typewriter effect for brand name (accessible)
+      const brandEl = document.getElementById('brand');
+      const phrases = ['This website', 'The Gondar city website', 'to develop by Amare mesele'];
+      let idx=0, pos=0, forward=true;
+
+      // Respect reduce motion
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduce){
+        brandEl.textContent = '';
+        setInterval(()=>{
+          const current = phrases[idx];
+          if(forward){
+            pos++;
+            brandEl.textContent = current.slice(0,pos);
+            if(pos === current.length){ forward=false; setTimeout(()=>{},700) }
+          } else {
+            pos--;
+            brandEl.textContent = current.slice(0,pos);
+            if(pos===0){ forward=true; idx=(idx+1)%phrases.length }
+          }
+        }, 60);
+      } else {
+        brandEl.textContent = phrases[0];
+      }
+
+      // Keyboard shortcut: Enter -> Get started
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter') document.getElementById('get-started').click();
+      });
+
+      // Button interactions: simple demo handlers
+      document.getElementById('get-started').addEventListener('click', ()=>{
+        // Smooth scroll to the 'panel' as a demo
+        document.querySelector('.panel').scrollIntoView({behavior:'smooth', block:'center'});
+        // subtle focus for accessibility
+        document.querySelector('.panel').focus && document.querySelector('.panel').focus();
+      });
+      
+    });
+  </script>
+</body>
+</html>
